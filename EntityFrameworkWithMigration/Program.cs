@@ -1,4 +1,7 @@
-﻿using System;
+﻿
+using EntityFrameworkWithMigration.Entities;
+using System;
+using System.Linq;
 
 namespace EntityFrameworkWithMigration
 {
@@ -18,9 +21,15 @@ namespace EntityFrameworkWithMigration
 
             context.SaveChanges();
 
-            foreach (var c in context.Clients)
+            //foreach (var c in context.Clients)
+            //{
+            //    Console.WriteLine($"Client {c.Name}  {c.Email}  {c.Birthday}");
+            //}
+
+            var filterFlight = context.Flights.Where(f => f.ArrivalCity == "Rivne").OrderBy(f => f.ArrivalTime);
+            foreach (var f in filterFlight)
             {
-                Console.WriteLine($"Client {c.Name}  {c.Email}  {c.Birthday.ToShortDateString()}");
+                Console.WriteLine($"Flight :  {f.Number} from: {f.ArrivalCity} to: {f.DeparturelCity}");
             }
         }
     }
