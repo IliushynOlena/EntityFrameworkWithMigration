@@ -13,11 +13,12 @@ namespace EntityFrameworkWithMigration.Entities
         //Primary Key namig : Id, id, ID, EntityName + Id
         public int Id { get; set; }
         [Required]//not null
-        [MaxLength(100)]//nvarchar(100)
+        [MaxLength(200)]//nvarchar(100)
         [Column("FirstName")]
         public string Name { get; set; }
         [Required, MaxLength(50)]
         public string Email { get; set; }
+        public int? Rating { get; set; }
         public DateTime? Birthday { get; set; }
         //Navigation Properties 
         public ICollection<Flight> Flights { get; set; }

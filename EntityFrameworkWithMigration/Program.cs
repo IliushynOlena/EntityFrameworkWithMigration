@@ -19,7 +19,7 @@ namespace EntityFrameworkWithMigration
                 Email = "volodia@gmail.com"
             });
 
-            context.SaveChanges();
+            //context.SaveChanges();
 
             //foreach (var c in context.Clients)
             //{
