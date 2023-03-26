@@ -83,6 +83,42 @@ namespace EntityFrameworkWithMigration
                 }
             });
 
+            //Fluent API configuration 
+            modelBuilder.Entity<Airplane>()
+                .Property(a => a.Model)
+                .HasMaxLength(100)
+                .IsRequired();
+
+            modelBuilder.Entity<Client>().ToTable("Passangers");
+            modelBuilder.Entity<Client>()
+                .Property(c => c.Name)
+                .HasMaxLength(200)
+                .IsRequired()
+                .HasColumnName("FirstName");
+            modelBuilder.Entity<Client>()
+              .Property(c => c.Email)
+              .HasMaxLength(50)
+              .IsRequired();
+
+            modelBuilder.Entity<Flight>().HasKey(f => f.Number);
+            modelBuilder.Entity<Flight>()
+                .Property(f => f.DeparturelCity)
+                .HasMaxLength(100)
+                .IsRequired();
+            modelBuilder.Entity<Flight>()
+                .Property(f => f.ArrivalCity)
+                .HasMaxLength(100)
+                .IsRequired();
+
+            //Relationships configuration
+            modelBuilder.Entity<Client>().HasMany(c => c.Flights).WithMany(f => f.Clients);
+            //modelBuilder.Entity<Flight>().HasMany(f => f.Clients).WithMany(c => c.Flights);
+            modelBuilder.Entity<Flight>()
+                .HasOne(f => f.Airplane)
+                .WithMany(a => a.Flights)
+                .HasForeignKey(f => f.AirplaneId);
+
+
         }
     }
 }
