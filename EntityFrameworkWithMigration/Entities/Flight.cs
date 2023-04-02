@@ -14,8 +14,8 @@ namespace EntityFrameworkWithMigration.Entities
         //Foreign key : RelatedEntityName + RelatedEntityPrimaryKeyName
         public int AirplaneId { get; set; }
         //Navigation Properties 
-        public Airplane Airplane { get; set; }
-        public ICollection<Client> Clients { get; set; }
+        public Airplane Airplane { get; set; }//References
+        public ICollection<Client> Clients { get; set; }//Collections
 
 
     }
