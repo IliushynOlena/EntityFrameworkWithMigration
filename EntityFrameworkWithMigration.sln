@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkWithMigration", "EntityFrameworkWithMigration\EntityFrameworkWithMigration.csproj", "{B3A836E0-0E59-436D-B3BE-27B7478628A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityFrameworkWithMigration", "EntityFrameworkWithMigration\EntityFrameworkWithMigration.csproj", "{B3A836E0-0E59-436D-B3BE-27B7478628A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "data_access", "data_access\data_access.csproj", "{08C01D40-32E9-4AE4-BB8E-1644C8314A64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkInWPF", "EntityFrameworkInWPF\EntityFrameworkInWPF.csproj", "{EC8BFB67-51AD-43AA-A9A5-113D9C64225A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{B3A836E0-0E59-436D-B3BE-27B7478628A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3A836E0-0E59-436D-B3BE-27B7478628A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3A836E0-0E59-436D-B3BE-27B7478628A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08C01D40-32E9-4AE4-BB8E-1644C8314A64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08C01D40-32E9-4AE4-BB8E-1644C8314A64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08C01D40-32E9-4AE4-BB8E-1644C8314A64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08C01D40-32E9-4AE4-BB8E-1644C8314A64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC8BFB67-51AD-43AA-A9A5-113D9C64225A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC8BFB67-51AD-43AA-A9A5-113D9C64225A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC8BFB67-51AD-43AA-A9A5-113D9C64225A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC8BFB67-51AD-43AA-A9A5-113D9C64225A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
