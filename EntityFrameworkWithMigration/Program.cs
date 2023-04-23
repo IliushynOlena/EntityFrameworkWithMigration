@@ -43,8 +43,8 @@ namespace EntityFrameworkWithMigration
 
             var client = context.Clients.Find(2);
             context.Entry(client).Collection(c => c.Flights).Load();//explicit load
-            Console.WriteLine($"Client : {client.Id} {client.Name}  {client.Birthday}" +
-                $" Flight: {client.Flights.Count}");
+            //Console.WriteLine($"Client : {client.Id} {client.Name}  {client.Birthday}" +
+                //$" Flight: {client.Flights.Count}");
             foreach (var f in client.Flights)
             {
                 Console.WriteLine($" {f.Number}   {f.DeparturelTime} {f.DeparturelCity}" );

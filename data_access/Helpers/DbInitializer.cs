@@ -1,4 +1,5 @@
-﻿using EntityFrameworkWithMigration.Entities;
+﻿using data_access.Entities;
+using EntityFrameworkWithMigration.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace EntityFrameworkWithMigration.Helpers
 {
     public static class DbInitializer
     {
-        public static void SeedAirplanes(this ModelBuilder modelBuilder)
+        public static void SeedAirplanes(this ModelBuilder modelBuilder)//extention
         {
             modelBuilder.Entity<Airplane>().HasData(new Airplane[]
            {
@@ -62,5 +63,34 @@ namespace EntityFrameworkWithMigration.Helpers
                 }
           });
         }
+        public static void SeedCredentials(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Credentials>().HasData( new Credentials[]
+            {
+                new Credentials(){ Id = 1, Login = "super", Password = "1234"},
+                new Credentials(){ Id = 2, Login = "superpuper", Password = "1111"},
+                new Credentials(){ Id = 3, Login = "user", Password = "2222"}
+            });
+        }
+        public static void SeedClients(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Client>().HasData(new Client[]
+            {
+                new Client(){  
+                    CredentialsId = 1, 
+                    Name= "Victor", 
+                    Email = "victor@gmail.com", 
+                    Birthday = new DateTime(2000,5,4), 
+                    Rating = 10 },
+                 new Client(){
+                    CredentialsId = 2,
+                    Name= "Petro",
+                    Email = "petro@gmail.com",
+                    Birthday = new DateTime(1999,5,4),
+                    Rating = 8 },
+
+            });
+        }
+
     }
 }

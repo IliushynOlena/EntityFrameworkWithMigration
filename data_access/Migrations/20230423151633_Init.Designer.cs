@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace EntityFrameworkWithMigration.Migrations
+namespace data_access.Migrations
 {
     [DbContext(typeof(AirplaneDbContext))]
-    [Migration("20230319155138_AddRating")]
-    partial class AddRating
+    [Migration("20230423151633_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,13 +23,13 @@ namespace EntityFrameworkWithMigration.Migrations
 
             modelBuilder.Entity("ClientFlight", b =>
                 {
-                    b.Property<int>("ClientsId")
+                    b.Property<int>("ClientsCredentialsId")
                         .HasColumnType("int");
 
                     b.Property<int>("FlightsNumber")
                         .HasColumnType("int");
 
-                    b.HasKey("ClientsId", "FlightsNumber");
+                    b.HasKey("ClientsCredentialsId", "FlightsNumber");
 
                     b.HasIndex("FlightsNumber");
 
@@ -72,10 +72,8 @@ namespace EntityFrameworkWithMigration.Migrations
 
             modelBuilder.Entity("EntityFrameworkWithMigration.Entities.Client", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("CredentialsId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("Birthday")
                         .HasColumnType("datetime2");
@@ -94,9 +92,27 @@ namespace EntityFrameworkWithMigration.Migrations
                     b.Property<int?>("Rating")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("CredentialsId");
 
                     b.ToTable("Passangers");
+
+                    b.HasData(
+                        new
+                        {
+                            CredentialsId = 1,
+                            Birthday = new DateTime(2000, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "victor@gmail.com",
+                            Name = "Victor",
+                            Rating = 10
+                        },
+                        new
+                        {
+                            CredentialsId = 2,
+                            Birthday = new DateTime(1999, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "petro@gmail.com",
+                            Name = "Petro",
+                            Rating = 8
+                        });
                 });
 
             modelBuilder.Entity("EntityFrameworkWithMigration.Entities.Flight", b =>
@@ -161,11 +177,54 @@ namespace EntityFrameworkWithMigration.Migrations
                         });
                 });
 
+            modelBuilder.Entity("data_access.Entities.Credentials", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Login")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Credentials");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Login = "super",
+                            Password = "1234"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Login = "superpuper",
+                            Password = "1111"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Login = "user",
+                            Password = "2222"
+                        });
+                });
+
             modelBuilder.Entity("ClientFlight", b =>
                 {
                     b.HasOne("EntityFrameworkWithMigration.Entities.Client", null)
                         .WithMany()
-                        .HasForeignKey("ClientsId")
+                        .HasForeignKey("ClientsCredentialsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -174,6 +233,17 @@ namespace EntityFrameworkWithMigration.Migrations
                         .HasForeignKey("FlightsNumber")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("EntityFrameworkWithMigration.Entities.Client", b =>
+                {
+                    b.HasOne("data_access.Entities.Credentials", "Credentials")
+                        .WithOne("Client")
+                        .HasForeignKey("EntityFrameworkWithMigration.Entities.Client", "CredentialsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Credentials");
                 });
 
             modelBuilder.Entity("EntityFrameworkWithMigration.Entities.Flight", b =>
@@ -190,6 +260,12 @@ namespace EntityFrameworkWithMigration.Migrations
             modelBuilder.Entity("EntityFrameworkWithMigration.Entities.Airplane", b =>
                 {
                     b.Navigation("Flights");
+                });
+
+            modelBuilder.Entity("data_access.Entities.Credentials", b =>
+                {
+                    b.Navigation("Client")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

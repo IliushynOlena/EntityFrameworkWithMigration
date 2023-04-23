@@ -1,4 +1,5 @@
-﻿using EntityFrameworkWithMigration.Entities;
+﻿using data_access.Entities;
+using EntityFrameworkWithMigration.Entities;
 using EntityFrameworkWithMigration.Helpers;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,6 +23,7 @@ namespace EntityFrameworkWithMigration
         public DbSet<Client> Clients { get; set; }
         public DbSet<Airplane> Airplanes { get; set; }
         public DbSet<Flight> Flights { get; set; }
+        public DbSet<Credentials> Credentials { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
@@ -37,12 +39,21 @@ namespace EntityFrameworkWithMigration
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+         
             //initialization or Seeder
             modelBuilder.SeedAirplanes();
             modelBuilder.SeedFlights();
-          
+            modelBuilder.SeedCredentials();
+            modelBuilder.SeedClients();
+
 
             //Fluent API configuration 
+            modelBuilder.Entity<Credentials>()
+                .HasOne(c => c.Client)
+                .WithOne(c => c.Credentials)
+                .HasForeignKey<Client>(c => c.CredentialsId);
+
             modelBuilder.Entity<Airplane>()
                 .Property(a => a.Model)
                 .HasMaxLength(100)
